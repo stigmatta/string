@@ -103,5 +103,49 @@ void MyString::myStrCat(MyString& b) // concatenation
 	this->str = new char[tmp.length + 1];
 	strcpy_s(this->str, tmp.length + 1, tmp.str);
 }
-//void myDelChr(char c); // удаляет указанный символ 
-//int myStrCmp(MyString& b)const; // сравнение строк 
+void MyString::myDelChr(char c) // удаляет указанный символ
+{
+	int i = 0, newsize = 0,j=0;
+	while (this->str[i] != '\0')
+	{
+		if (this->str[i] != c)
+			newsize++;
+		i++;
+	}
+	MyString tmp(newsize+1);
+	tmp.str = new char[tmp.length];
+	i = 0;
+	while (this->str[i] != '\0')
+	{
+		if (this->str[i] != c)
+		{
+			tmp.str[j] = this->str[i];
+			j++;
+		}
+		i++;
+	}
+	tmp.str[newsize] = '\0';
+	if (this->str != nullptr)
+		delete[]this->str;
+	this->str = new char[newsize + 1];
+	i = 0;
+	while (tmp.str[i] != '\0')
+	{
+		this->str[i] = tmp.str[i];
+		i++;
+	}
+	this->str[newsize] = '\0';
+}
+int MyString::myStrCmp(MyString& b)const // сравнение строк 
+{
+	int i = 0;
+	while (this->str[i] != '\0')
+	{
+		if (this->str[i] > b.str[i])
+			return 1;
+		else if (this->str[i] < b.str[i])
+			return -1;
+		i++;
+	}
+	return 0;
+}
