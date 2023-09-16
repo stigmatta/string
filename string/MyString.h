@@ -13,27 +13,31 @@ public:
 	~MyString();
 	void init(const char* str);
 	void print()const;
-	void myStrCpy(const MyString& obj);// копирование строк
-	bool myStrStr(const char* str)const;// поиск подстроки в строке
-	int  myChr(char c)const; // поиск символа в строке(индекс найденного символа, либо -1)
-	int myStrLen()const;// возвращает длину строки
-	MyString myStrCat(MyString& b); // объединение строк
-	MyString myStrCat(const char* word);//конкатенанировать к строке вписанное слово
-	void myDelChr(char c); // удаляет указанный символ 
-	int myStrCmp(MyString&b)const; // сравнение строк 
-	MyString operator + (MyString& b); // перегрузка оператора + (конкатенация строк)
-	MyString operator + (const char* word); //перегрузка оператора + (конкатенанировать к строке вписанное слово)
-	MyString& operator++(); // увеличение размера строки на 1
-	MyString operator++(int); // postfix увеличение размера строки на 1
-	MyString& operator--(); //удаление последнего символа строки
-	MyString operator--(int); //postfix удаление последнего символа строки
-	MyString& operator - (char c); // удаление символа из строки
-	bool operator > (MyString& b); //сравнение строк(по таблице ascii)
+	void myStrCpy(const MyString& obj);// copying strings
+	bool myStrStr(const char* str)const;// searching substring in a string
+	int  myChr(char c)const; // searching symbol in a string(index of a found symbol, or -1)
+	int myStrLen()const;// returning str length
+	MyString myStrCat(MyString& b); // concatenation
+	MyString myStrCat(const char* word);//concat const char
+	void myDelChr(char c); // delete any symbol
+	int myStrCmp(MyString&b)const; // string compare 
+	MyString operator + (MyString& b); // string concatenation
+	MyString operator + (const char* word); //concat const char
+	MyString& operator++(); // str len +1
+	MyString operator++(int); // postfix str len +1
+	MyString& operator--(); //delete last symbol in string
+	MyString operator--(int); //postfix delete last symbol in string
+	MyString& operator - (char c); // delete any symbol from string
+	MyString& operator +=(MyString& b);//simplified concatenation
+	MyString& operator +=(const char*word);//simplified concat const char
+	MyString& operator -=(char c);
+	bool operator > (MyString& b); //string compare(ascii)
 	bool operator < (MyString& b);
 	bool operator >= (MyString& b);
 	bool operator <= (MyString& b);
 	bool operator == (MyString& b);
 	bool operator != (MyString& b);
+	
 
 };
 

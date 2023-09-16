@@ -8,8 +8,14 @@ int main()
 	MyString a("warsaw"); 
 	a.print();
 	MyString b("Kyiv");
-	MyString c = a + b;
-	c.print();
+	a += b;
+	a.print();
+	a += "haha";
+	a.print();
+	a -= 'a';
+	a.print();
+	/*MyString c = a + b;
+	c.print();*/
 	/*b.myStrCat(a);
 	b.print();
 	cout << a.myStrStr("Warsak")<<endl;
@@ -24,9 +30,9 @@ int main()
 	--a;
 	++a;
 	a.print();*/
-	/*MyString d = a - 'w';*/
-	/*d.print();*/
-	bool test1 = a > b;
+	MyString d = a - 'w';
+	d.print();
+	/*bool test1 = a > b;
 	cout << test1 << endl;
 	bool test2 = a < b;
 	cout << test2 << endl;
@@ -41,6 +47,6 @@ int main()
 	bool test7 = a <= a;
 	cout << test7 << endl;
 	bool test8 = a <= b;
-	cout << test8 << endl;
+	cout << test8 << endl;*/
 	return 0;
 }

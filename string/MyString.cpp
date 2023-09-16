@@ -289,31 +289,17 @@ MyString MyString::operator--(int) //postfix удаление последнего символа строки
 }
 MyString& MyString:: operator - (char c) // удаление символа из строки
 {
-	int i = 0,j=0,newsize=0;
-	while (this->str[i] != '\0')
-	{
-		if (this->str[i] != c)
-			newsize++;
-		i++;
-	}
-	i = 0;
-	MyString tmp(newsize+1);
-	tmp.str = new char[tmp.length];
-	while (this->str[i] != '\0')
-	{
-		if (this->str[i] != c)
-		{
-			tmp.str[j] = this->str[i];
-			j++;
-		}
-		i++;
-	}
-	tmp.str[j] = '\0';
-	i = j = 0;
+	this->myDelChr(c);
+	return *this;
+}
+MyString& MyString:: operator +=(MyString& b)//simplified concatenation
+{
+	MyString tmp = this->myStrCat(b);
 	if (this->str != nullptr)
 		delete[]this->str;
 	this->length = tmp.length;
-	this->str = new char[tmp.length];
+	this->str = new char[this->length];
+	int i = 0, j = 0;
 	while (tmp.str[i] != '\0')
 	{
 		this->str[i] = tmp.str[i];
@@ -322,6 +308,28 @@ MyString& MyString:: operator - (char c) // удаление символа из строки
 	this->str[i] = '\0';
 	return *this;
 }
+MyString& MyString:: operator +=(const char* word)//simplified concatenation
+{
+	MyString tmp = this->myStrCat(word);
+	if (this->str != nullptr)
+		delete[]this->str;
+	this->length = tmp.length;
+	this->str = new char[this->length];
+	int i = 0, j = 0;
+	while (tmp.str[i] != '\0')
+	{
+		this->str[i] = tmp.str[i];
+		i++;
+	}
+	this->str[i] = '\0';
+	return *this;
+}
+MyString&MyString::operator -=(char c)
+{
+	this->myDelChr(c);
+	return *this;
+}
+
 bool MyString:: operator > (MyString& b) //сравнение строк(по таблице ascii)
 {
 	int i = 0;
