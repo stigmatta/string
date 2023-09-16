@@ -23,6 +23,23 @@ int main()
 	--a;
 	++a;
 	a.print();*/
-	MyString d = a - 'w';
-	d.print();
+	/*MyString d = a - 'w';*/
+	/*d.print();*/
+	bool test1 = a > b;
+	cout << test1 << endl;
+	bool test2 = a < b;
+	cout << test2 << endl;
+	bool test3 = a == b;
+	cout << test3<< endl;
+	bool test4 = a != b;
+	cout << test4 << endl;
+	bool test5 = a >= a;
+	cout << test5 << endl;
+	bool test6 = a >= b;
+	cout << test6 << endl;
+	bool test7 = a <= a;
+	cout << test7 << endl;
+	bool test8 = a <= b;
+	cout << test8 << endl;
+
 }

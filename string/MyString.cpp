@@ -329,7 +329,77 @@ bool MyString:: operator > (MyString& b) //сравнение строк(по таблице ascii)
 	{
 		if (str[i] > b.str[i])
 			return true;
+		else if (str[i] < b.str[i])
+			return false;
 	}
 	return false;
+}
+bool MyString:: operator < (MyString& b)
+{
+	int i = 0;
+	while (str[i] != '\0' && b.str[i] != '\0')
+	{
+		if (str[i] > b.str[i])
+			return false;
+		else if (str[i] < b.str[i])
+			return true;
+		i++;
+
+	}
+	return false;
+}
+bool MyString:: operator >= (MyString& b)
+{
+	int i = 0;
+	bool flag = 0;
+	while (str[i] != '\0' && b.str[i] != '\0')
+	{
+		if (str[i] > b.str[i])
+			return true;
+		else if (str[i] < b.str[i])
+			return false;
+		i++;
+
+	}
+	return true;
+}
+bool MyString:: operator <= (MyString& b)
+{
+	int i = 0;
+	bool flag = 0;
+	while (str[i] != '\0' && b.str[i] != '\0')
+	{
+		if (str[i] < b.str[i])
+			return true;
+		else if (str[i] > b.str[i])
+			return false;
+		i++;
+
+	}
+	return true;
+}
+bool MyString:: operator == (MyString& b)
+{
+	int i = 0;
+	while (str[i] != '\0' && b.str[i] != '\0')
+	{
+		if (str[i] != b.str[i])
+			return false;
+		i++;
+
+	}
+	return true;
+}
+bool MyString:: operator != (MyString& b)
+{
+	int i = 0;
+	while (str[i] != '\0' && b.str[i] != '\0')
+	{
+		if (str[i] != b.str[i])
+			return true;
+		i++;
+
+	}
+	return true;
 }
 
