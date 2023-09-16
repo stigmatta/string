@@ -4,6 +4,7 @@ using namespace std;
 int MyString:: createdObj=0;
 int main()
 {
+	system("chcp 1251");
 	MyString a("warsaw"); 
 	a.print();
 	MyString b("Kyiv");
@@ -41,5 +42,5 @@ int main()
 	cout << test7 << endl;
 	bool test8 = a <= b;
 	cout << test8 << endl;
-
+	return 0;
 }
