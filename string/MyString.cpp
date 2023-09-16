@@ -22,10 +22,21 @@ MyString::MyString(const char* str)
 	this->str = new char[length];
 	strcpy_s(this->str, strlen(str) + 1, str);
 }
+MyString::MyString(const MyString& b)
+{
+	this->myStrCpy(b);
+	createdObj++;
+}
+MyString::~MyString()
+{
+	if (this->str != nullptr)
+		delete[]this->str;
+	cout << "Destructor" << endl;
+}
 void MyString:: init(const char* str) 
 {
 	if (this->str != nullptr)
-		delete[]str;
+		delete[]this->str;
 	this->length = strlen(str) + 1;
 	this->str = new char[length];
 	strcpy_s(this->str, strlen(str) + 1, str);
@@ -34,18 +45,17 @@ void MyString::print()const
 {
 	cout << str << endl;
 }
-void MyString::myStrCpy(MyString& obj) 
+void MyString::myStrCpy(const MyString& obj) 
 {
 	if (this->str != nullptr)
 		delete[]str;
 	this->length = obj.length + 1;
 	this->str = new char[this->length+ 1];
-	strcpy_s(this->str, this ->length + 1, obj.str);
+	strcpy_s(this->str, this->length + 1, obj.str);
 }
 bool MyString::myStrStr(const char* str)const 
 {
 	int i = 0,j=0;
-	bool flag = 0;
 	while (this->str[i] != '\0')
 	{
 		if (this->str[i] == str[j])
@@ -82,7 +92,7 @@ int MyString::myStrLen()const //return str length
 		i++;
 	return i;
 }
-void MyString::myStrCat(MyString& b) // concatenation
+MyString MyString::myStrCat(MyString& b) // concatenation
 {
 	MyString tmp((int)this->length + b.length-1);
 	tmp.str = new char[tmp.length];
@@ -98,10 +108,26 @@ void MyString::myStrCat(MyString& b) // concatenation
 			j++;
 		}
 	}
-	if (this->str != nullptr)
-		delete[]this->str;
-	this->str = new char[tmp.length + 1];
-	strcpy_s(this->str, tmp.length + 1, tmp.str);
+	return tmp;
+}
+MyString MyString :: myStrCat(const char* word)
+{
+	MyString tmp((int)this->length + strlen(word));
+	tmp.str = new char[tmp.length];
+	for (int i = 0, j = 0; i < tmp.length; i++)
+	{
+		if (word[j] == '\0')
+			break;
+		if (i < this->length - 1)
+			tmp.str[i] = this->str[i];
+		else
+		{
+			tmp.str[i] = word[j];
+			j++;
+		}
+	}
+	tmp.str[tmp.length-1]= '\0';
+	return tmp;
 }
 void MyString::myDelChr(char c) // удаляет указанный символ
 {
@@ -149,3 +175,161 @@ int MyString::myStrCmp(MyString& b)const // сравнение строк
 	}
 	return 0;
 }
+MyString MyString:: operator + (MyString& b)
+{
+	MyString tmp = this->myStrCat(b);
+	return tmp;
+}
+MyString MyString:: operator + (const char* word)
+{
+	MyString tmp = this->myStrCat(word);
+	return tmp;
+}
+MyString& MyString:: operator++()
+{
+	MyString tmp(this->length + 1);
+	tmp.str = new char[tmp.length];
+	int i = 0;
+	while (str[i] != '\0')
+	{
+		tmp.str[i] = str[i];
+		i++;
+	}
+	tmp.str[i] = '\0';
+	i = 0;
+	this->length++;
+	if (this->str != nullptr)
+		delete[]this->str;
+	this->str = new char[this->length];
+	while (tmp.str[i] != '\0')
+	{
+		str[i] = tmp.str[i];
+		i++;
+	}
+	str[i] = ' ';
+	str[length-1] = '\0';
+	return *this;
+}
+MyString& MyString::operator--()
+{
+	MyString tmp(this->length - 1);
+	tmp.length = this->length - 1;
+	tmp.str = new char[tmp.length];
+	int i = 0;
+	while (this->str[i + 1] != '\0')
+	{
+		tmp.str[i] = this->str[i];
+		i++;
+	}
+	tmp.str[i] = '\0';
+	i = 0;
+	if (this->str != nullptr)
+		delete[] this->str;
+	this->length = tmp.length;
+	this->str = new char[this->length];
+	while (tmp.str[i] != '\0')
+	{
+		this->str[i] = tmp.str[i];
+		i++;
+	}
+	this->str[i] = '\0';
+	return *this;
+}
+MyString MyString:: operator++(int) // postfix увеличение размера строки на 1
+{
+	MyString retObj(this->str);
+	MyString tmp(this->length + 1);
+	tmp.str = new char[tmp.length];
+	int i = 0;
+	while (str[i] != '\0')
+	{
+		tmp.str[i] = str[i];
+		i++;
+	}
+	tmp.str[i] = '\0';
+	i = 0;
+	this->length++;
+	if (this->str != nullptr)
+		delete[]this->str;
+	this->str = new char[this->length];
+	while (tmp.str[i] != '\0')
+	{
+		str[i] = tmp.str[i];
+		i++;
+	}
+	str[i] = ' ';
+	str[length - 1] = '\0';
+	return retObj;
+}
+MyString MyString::operator--(int) //postfix удаление последнего символа строки
+{
+	MyString retObj(this->str);
+	MyString tmp(this->length - 1);
+	tmp.length = this->length - 1;
+	tmp.str = new char[tmp.length];
+	int i = 0;
+	while (this->str[i + 1] != '\0')
+	{
+		tmp.str[i] = this->str[i];
+		i++;
+	}
+	tmp.str[i] = '\0';
+	i = 0;
+	if (this->str != nullptr)
+		delete[] this->str;
+	this->length = tmp.length;
+	this->str = new char[this->length];
+	while (tmp.str[i] != '\0')
+	{
+		this->str[i] = tmp.str[i];
+		i++;
+	}
+	this->str[i] = '\0';
+	return retObj;
+}
+MyString& MyString:: operator - (char c) // удаление символа из строки
+{
+	int i = 0,j=0,newsize=0;
+	while (this->str[i] != '\0')
+	{
+		if (this->str[i] != c)
+			newsize++;
+		i++;
+	}
+	i = 0;
+	MyString tmp(newsize+1);
+	tmp.str = new char[tmp.length];
+	while (this->str[i] != '\0')
+	{
+		if (this->str[i] != c)
+		{
+			tmp.str[j] = this->str[i];
+			j++;
+		}
+		i++;
+	}
+	tmp.str[j] = '\0';
+	i = j = 0;
+	if (this->str != nullptr)
+		delete[]this->str;
+	this->length = tmp.length;
+	this->str = new char[tmp.length];
+	while (tmp.str[i] != '\0')
+	{
+		this->str[i] = tmp.str[i];
+		i++;
+	}
+	this->str[i] = '\0';
+	return *this;
+}
+bool MyString:: operator > (MyString& b) //сравнение строк(по таблице ascii)
+{
+	int i = 0;
+	while (str[i] != '\0' && b.str[i] != '\0')
+	{
+		if (str[i] > b.str[i])
+			return true;
+	}
+	return false;
+}
+
