@@ -50,8 +50,8 @@ void MyString::myStrCpy(const MyString& obj)
 	if (this->str != nullptr)
 		delete[]str;
 	this->length = obj.length + 1;
-	this->str = new char[this->length+ 1];
-	strcpy_s(this->str, this->length + 1, obj.str);
+	this->str = new char[this->length];
+	strcpy_s(this->str, this->length, obj.str);
 }
 bool MyString::myStrStr(const char* str)const 
 {
@@ -73,7 +73,7 @@ bool MyString::myStrStr(const char* str)const
 	}
 	return false;
 }
-int MyString:: myChr(char c)const //ïîèñê ñèìâîëà â ñòðîêå(èíäåêñ íàéäåííîãî ñèìâîëà, ëèáî -1)
+int MyString:: myChr(char c)const //Ã¯Ã®Ã¨Ã±Ãª Ã±Ã¨Ã¬Ã¢Ã®Ã«Ã  Ã¢ Ã±Ã²Ã°Ã®ÃªÃ¥(Ã¨Ã­Ã¤Ã¥ÃªÃ± Ã­Ã Ã©Ã¤Ã¥Ã­Ã­Ã®Ã£Ã® Ã±Ã¨Ã¬Ã¢Ã®Ã«Ã , Ã«Ã¨Ã¡Ã® -1)
 {
 	int i = 0;
 	while (this->str[i] != '\0')
@@ -129,7 +129,7 @@ MyString MyString :: myStrCat(const char* word)
 	tmp.str[tmp.length-1]= '\0';
 	return tmp;
 }
-void MyString::myDelChr(char c) // óäàëÿåò óêàçàííûé ñèìâîë
+void MyString::myDelChr(char c) // Ã³Ã¤Ã Ã«Ã¿Ã¥Ã² Ã³ÃªÃ Ã§Ã Ã­Ã­Ã»Ã© Ã±Ã¨Ã¬Ã¢Ã®Ã«
 {
 	int i = 0, newsize = 0,j=0;
 	while (this->str[i] != '\0')
@@ -162,7 +162,7 @@ void MyString::myDelChr(char c) // óäàëÿåò óêàçàííûé ñèìâîë
 	}
 	this->str[newsize] = '\0';
 }
-int MyString::myStrCmp(MyString& b)const // ñðàâíåíèå ñòðîê 
+int MyString::myStrCmp(MyString& b)const // Ã±Ã°Ã Ã¢Ã­Ã¥Ã­Ã¨Ã¥ Ã±Ã²Ã°Ã®Ãª 
 {
 	int i = 0;
 	while (this->str[i] != '\0')
@@ -235,7 +235,7 @@ MyString& MyString::operator--()
 	this->str[i] = '\0';
 	return *this;
 }
-MyString MyString:: operator++(int) // postfix óâåëè÷åíèå ðàçìåðà ñòðîêè íà 1
+MyString MyString:: operator++(int) // postfix Ã³Ã¢Ã¥Ã«Ã¨Ã·Ã¥Ã­Ã¨Ã¥ Ã°Ã Ã§Ã¬Ã¥Ã°Ã  Ã±Ã²Ã°Ã®ÃªÃ¨ Ã­Ã  1
 {
 	MyString retObj(this->str);
 	MyString tmp(this->length + 1);
@@ -261,7 +261,7 @@ MyString MyString:: operator++(int) // postfix óâåëè÷åíèå ðàçìåðà ñòðîêè íà 1
 	str[length - 1] = '\0';
 	return retObj;
 }
-MyString MyString::operator--(int) //postfix óäàëåíèå ïîñëåäíåãî ñèìâîëà ñòðîêè
+MyString MyString::operator--(int) //postfix Ã³Ã¤Ã Ã«Ã¥Ã­Ã¨Ã¥ Ã¯Ã®Ã±Ã«Ã¥Ã¤Ã­Ã¥Ã£Ã® Ã±Ã¨Ã¬Ã¢Ã®Ã«Ã  Ã±Ã²Ã°Ã®ÃªÃ¨
 {
 	MyString retObj(this->str);
 	MyString tmp(this->length - 1);
@@ -287,7 +287,7 @@ MyString MyString::operator--(int) //postfix óäàëåíèå ïîñëåäíåãî ñèìâîëà ñòðîêè
 	this->str[i] = '\0';
 	return retObj;
 }
-MyString& MyString:: operator - (char c) // óäàëåíèå ñèìâîëà èç ñòðîêè
+MyString& MyString:: operator - (char c) // Ã³Ã¤Ã Ã«Ã¥Ã­Ã¨Ã¥ Ã±Ã¨Ã¬Ã¢Ã®Ã«Ã  Ã¨Ã§ Ã±Ã²Ã°Ã®ÃªÃ¨
 {
 	this->myDelChr(c);
 	return *this;
@@ -330,7 +330,7 @@ MyString&MyString::operator -=(char c)
 	return *this;
 }
 
-bool MyString:: operator > (MyString& b) //ñðàâíåíèå ñòðîê(ïî òàáëèöå ascii)
+bool MyString:: operator > (MyString& b) //Ã±Ã°Ã Ã¢Ã­Ã¥Ã­Ã¨Ã¥ Ã±Ã²Ã°Ã®Ãª(Ã¯Ã® Ã²Ã Ã¡Ã«Ã¨Ã¶Ã¥ ascii)
 {
 	int i = 0;
 	while (str[i] != '\0' && b.str[i] != '\0')
